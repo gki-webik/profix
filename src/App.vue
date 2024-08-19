@@ -1,6 +1,9 @@
 <script>
+import User from "./components/User.vue"
+
 let id = 0
 export default {
+    components: { User },
     data() {
         return {
             myName: "",
@@ -17,6 +20,9 @@ export default {
                 }
             );
             this.myName = "";
+        },
+        delUser(index) {
+            this.array.splice(index, 1);
         }
     }
 }
@@ -26,9 +32,7 @@ export default {
     <div class="main">
         <input type="text" v-model="myName">
         <button @click="pushScopeId()">Отправить</button>
-        <div v-for="e in array" :key="e.id">
-            {{ e.name }}
-        </div>
+        <User v-for="(user, index) in array" :key="index" :user="user" :indexUser="index" :delUser="delUser" />
         <div v-if="array.length == 0">
             Элементов нет
         </div>
