@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Oswald", sans-serif, sans-serif;
+}
+body {
+  font-family: "Oswald", sans-serif, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.is-none {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+.is-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+body {
+  background-color: #434655;
+}
