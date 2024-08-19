@@ -1,44 +1,44 @@
 <script>
-import User from "./components/User.vue"
-
-let id = 0
 export default {
-    components: { User },
+    mounted() {
+        let MWKStyle = document.createElement('link');
+        MWKStyle.setAttribute('href', 'https://gki-wbk.ru/files/lib/mwk/mwk.min.css');
+        MWKStyle.setAttribute('rel', 'stylesheet');
+        document.head.appendChild(MWKStyle);
+        let MWKScript = document.createElement('script');
+        MWKScript.setAttribute('src', 'https://gki-wbk.ru/files/lib/mwk/mwk.min.js');
+        document.body.appendChild(MWKScript);
+    },
     data() {
         return {
-            myName: "",
-            array: [],
+            city: "Omsk",
+
         }
     },
     methods: {
-        pushScopeId() {
-
-            this.myName == "" || this.array.push(
-                {
-                    id: id++,
-                    name: this.myName
-                }
-            );
-            this.myName = "";
-        },
-        delUser(index) {
-            this.array.splice(index, 1);
+        fetchAPI(url) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    'type': 'link', 'method': 'add', "content": "https://example.com"
+                })
+            })
+                .then(res => res.json())
+                .then((data) => { console.log(data) })
+                .catch((err) => { console.log(err) });
         }
     }
 }
 </script>
-
 <template>
-    <div class="main">
-        <input type="text" v-model="myName">
-        <button @click="pushScopeId()">Отправить</button>
-        <User v-for="(user, index) in array" :key="index" :user="user" :indexUser="index" :delUser="delUser" />
-        <div v-if="array.length == 0">
-            Элементов нет
-        </div>
-        <div v-else>
-            Сейчас {{ array.length }} элемента
-        </div>
+    <div className="main">
+        <input type="text" className="wk-input" v-model="city">
+        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/klicks/api.php')"
+            v-show="this.city !== ''">Клац</button>
+        {{ city }}
     </div>
 </template>
 
@@ -48,8 +48,11 @@ export default {
     display: flex;
     flex-direction: column;
     color: #ddd;
+    gap: 10px;
     align-items: center;
     justify-content: center;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 h1 {
