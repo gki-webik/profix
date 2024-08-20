@@ -1,5 +1,7 @@
 <script>
+import MyLinks from "./components/MyLinks.vue"
 export default {
+    components: { MyLinks },
     mounted() {
         let MWKStyle = document.createElement('link');
         MWKStyle.setAttribute('href', 'https://gki-wbk.ru/files/lib/mwk/mwk.min.css');
@@ -34,6 +36,9 @@ export default {
                 .then(res => res.json())
                 .then((data) => { this.info = data })
                 .catch((err) => { console.log(err); });
+        },
+        clearLink() {
+            this.info = ""
         }
     }
 }
@@ -41,10 +46,10 @@ export default {
 <template>
     <div className="main">
         <input type="text" className="wk-input" v-model="link">
-        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/klicks/v2', 'POST')"
+        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/klicks/', 'POST')"
             v-show="this.link !== ''">Клац</button>
         <br>
-        {{ info }}
+        <MyLinks :myLink="this.info" :clearLink="clearLink" />
     </div>
 </template>
 
@@ -62,6 +67,6 @@ export default {
 }
 
 h1 {
-    color: #ddd;
+    color:#ddd;
 }
 </style>
