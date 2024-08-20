@@ -12,22 +12,26 @@ export default {
     data() {
         return {
             city: "Omsk",
-
+            info: ""
         }
     },
     methods: {
-        fetchAPI(url) {
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    'type': 'link', 'method': 'add', "content": "https://example.com"
+        fetchAPI(url, method) {
+            if (method === "POST") {
+                fetch(url, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        'type': 'link', 'method': 'add', "content": "https://example.com"
+                    })
                 })
-            })
+                    .then(res => res.json())
+                    .then((data) => { this.info = data })
+                    .catch((err) => { console.log(err) });
+                return;
+            }
+            fetch(url)
                 .then(res => res.json())
-                .then((data) => { console.log(data) })
+                .then((data) => { this.info = data })
                 .catch((err) => { console.log(err) });
         }
     }
@@ -36,9 +40,12 @@ export default {
 <template>
     <div className="main">
         <input type="text" className="wk-input" v-model="city">
-        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/klicks/api.php')"
-            v-show="this.city !== ''">Клац</button>
+        <button className="wk-btn is-fullwidth is-primary"
+            @click="fetchAPI('https://gki-wbk.ru/api/klicks/index.php', 'POST')" v-show="this.city !== ''">Клац</button>
+        <br>
         {{ city }}
+        <br>
+        {{ info }}
     </div>
 </template>
 
