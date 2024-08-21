@@ -23,8 +23,11 @@ export default {
             if (method === "POST") {
                 fetch(url, {
                     method: 'POST',
-                    body: JSON.stringify({
+                    /* body: JSON.stringify({
                         'key': 'WK255', 'type': 'link', 'method': 'add', "content": this.link
+                    }) */
+                    body: JSON.stringify({
+                        'key': 'WK255', 'type': 'getToken'
                     })
                 })
                     .then(res => res.json())
@@ -46,7 +49,7 @@ export default {
 <template>
     <div className="main">
         <input type="text" className="wk-input" v-model="link">
-        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/klicks/', 'POST')"
+        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/gki-wbk/', 'POST')"
             v-show="this.link !== ''">Клац</button>
         <br>
         <MyLinks :myLink="this.info" :clearLink="clearLink" />
