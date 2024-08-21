@@ -27,7 +27,8 @@ export default {
                         'key': 'WK255', 'type': 'link', 'method': 'add', "content": this.link
                     }) */
                     body: JSON.stringify({
-                        'key': 'WK255', 'type': 'getToken'
+                        'key': 'WK255', 'type': 'getToken',
+                        credentials: 'include'
                     })
                 })
                     .then(res => res.json())
@@ -70,6 +71,6 @@ export default {
 }
 
 h1 {
-    color:#ddd;
+    color: #ddd;
 }
 </style>
