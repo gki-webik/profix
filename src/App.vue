@@ -27,12 +27,17 @@ export default {
                         'key': 'WK255', 'type': 'link', 'method': 'add', "content": this.link
                     }) */
                     body: JSON.stringify({
-                        'key': 'WK255', 'type': 'getToken',
-                        credentials: 'include'
-                    })
+                        "username": "root",
+                        "password": "555"
+                    }),
+                    headers: {
+                        'Authorization': "Bearer " + localStorage.getItem('token')
+                    }
                 })
                     .then(res => res.json())
-                    .then((data) => { this.info = data })
+                    .then((data) => {
+                        this.info = data;
+                    })
                     .catch((err) => { console.log(err); });
                 return;
             }
@@ -50,8 +55,8 @@ export default {
 <template>
     <div className="main">
         <input type="text" className="wk-input" v-model="link">
-        <button className="wk-btn is-fullwidth is-primary" @click="fetchAPI('https://gki-wbk.ru/api/gki-wbk/', 'POST')"
-            v-show="this.link !== ''">Клац</button>
+        <button className="wk-btn is-fullwidth is-primary"
+            @click="fetchAPI('https://magic-wk.ru/protected.php', 'POST')" v-show="this.link !== ''">Клац</button>
         <br>
         <MyLinks :myLink="this.info" :clearLink="clearLink" />
     </div>
